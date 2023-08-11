@@ -1,35 +1,31 @@
 #include <stdio.h>
 #include <math.h>
 
-typedef struct {
-	double real;
-	double imaginario;
-}Complejo;
+void calcularRaices(float A, float B, float C, float *raiz1, float *raiz2) {
+    float discriminante;
 
-void rect_a_polar(Complejo c, double* modulo, double* tita) {
-	*modulo = sqrt(pow((c.real), 2) + pow((c.imaginario), 2));
-	*tita = atan2(c.imaginario, c.real);
+    discriminante = B * B - 4 * A * C;
+
+    if (discriminante > 0) {
+        *raiz1 = (-B + sqrt(discriminante)) / (2 * A);
+        *raiz2 = (-B - sqrt(discriminante)) / (2 * A);
+    }
 }
 
-void polar_a_rect(double modulo, double tita, Complejo* c) {
-	
-	c->real = modulo * cos(tita);
-	c->imaginario = modulo * sin(tita);
-}
+int main() {
+    float A, B, C, raiz1, raiz2;
 
+    printf("Ingrese los coeficientes de la ecuaciÃ³n cuadrÃ¡tica:\n");
+    printf("A: ");
+    scanf("%f", &A);
+    printf("B: ");
+    scanf("%f", &B);
+    printf("C: ");
+    scanf("%f", &C);
 
-int main(void) {
-	Complejo numRectangular = {3, 2};
-	double modulo, tita;
-	
-	
-	printf("Número complejo en forma rectangular: %f + %fi\n", numRectangular.real, numRectangular.imaginario);
-	rect_a_polar(numRectangular, &modulo, &tita);
-	printf("Número complejo en forma polar: %f / %f\n",modulo, tita);
-	polar_a_rect(modulo, tita, &numRectangular);
-	printf("Número complejo en forma rectangular nuevamente: %f + %fi\n",numRectangular.real, numRectangular.imaginario);
-	
-	
-	
-	return 0;
+    calcularRaices(A, B, C, &raiz1, &raiz2);
+
+    printf("Las raices de la ecuaciÃ³n cuadrÃ¡tica son: %.2f y %.2f\n", raiz1, raiz2);
+
+    return 0;
 }
